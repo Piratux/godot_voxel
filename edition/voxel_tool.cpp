@@ -327,7 +327,7 @@ void VoxelTool::smooth_sphere(Vector3 sphere_center, float sphere_radius, int bl
 void VoxelTool::do_surface(Vector3 sphere_center, float sphere_radius, float strength) {
 	ZN_PROFILE_SCOPE();
 	ZN_ASSERT_RETURN(sphere_radius >= 0.01f);
-    ZN_ASSERT_RETURN(strength >= 0.0f && strength <= 1.0f);
+	ZN_ASSERT_RETURN(strength >= 0.0f && strength <= 1.0f);
 
 	const Box3i voxel_box = Box3i::from_min_max(
 			math::floor_to_int(sphere_center - Vector3(sphere_radius, sphere_radius, sphere_radius)),
@@ -340,18 +340,13 @@ void VoxelTool::do_surface(Vector3 sphere_center, float sphere_radius, float str
 	buffer->create(voxel_box.size.x, voxel_box.size.y, voxel_box.size.z);
 
 	if (_channel == VoxelBufferInternal::CHANNEL_SDF) {
-        // Since offsetted value is multiplied by strength inside ops::do_surface, we 
-        // can just negate strength for MODE_REMOVE to avoid extra variable.
-        // if (_mode == VoxelTool::MODE_REMOVE) {
-        //     strength *= -1;
-        // }
-		// Note, this only applies to SDF. It won't blur voxel texture data.
-
+		// Note, this only applies to SDF. It won't affect voxel texture data.
+		
 		copy(voxel_box.pos, buffer, (1 << VoxelBufferInternal::CHANNEL_SDF));
 
 		std::shared_ptr<VoxelBufferInternal> smooth_buffer = make_shared_instance<VoxelBufferInternal>();
 		const Vector3f relative_sphere_center = to_vec3f(sphere_center - to_vec3(voxel_box.pos));
-        bool is_mode_add = _mode == VoxelTool::MODE_ADD;
+		bool is_mode_add = _mode == VoxelTool::MODE_ADD;
 
 		ops::do_surface(buffer->get_buffer(), *smooth_buffer, strength, relative_sphere_center, sphere_radius, is_mode_add);
 
