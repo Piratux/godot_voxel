@@ -8,8 +8,23 @@ At the moment, this module doesn't have a distinct release schedule, so this cha
 Semver is not yet in place, so each version can have breaking changes, although it shouldn't happen often across minor versions.
 
 
-1.x - ongoing development - `master`
+1.2.dev - ongoing development - `master`
 --------------------------------------
+
+Primarily developped with Godot 4.2.
+
+- Added `ZN_SpotNoise`, exposing the same algorithm as the `SpotNoise2D` and `SpotNoise3D` nodes of graph generators
+
+- Fixes
+    - Fixed chunk loading was prioritized incorrectly around the player in specific game start conditions
+    - Fixed `"plugins_list.has(p_plugin)" is true` errors in the editor, at the cost of slight behavior changes. This was caused by existing workarounds to prevent UIs from hiding unexpectedly, which were modified to avoid the error, but are still needed unfortunately.
+    - `VoxelLodTerrain`: `VoxelTool.do_point` and `set_voxel` were not always updating meshes near chunk borders, leaving holes
+
+
+1.1 - 29/12/2023 - `1.1`
+---------------------------------
+
+Primarily developped with Godot 4.1
 
 - General
     - Added shadow casting setting to both terrain types
@@ -92,6 +107,7 @@ Semver is not yet in place, so each version can have breaking changes, although 
     - `VoxelTerrain`: Fixed crash when the terrain tries to update while it has no mesher assigned
     - `VoxelLodTerrain`: Fixed error spam when re-generating or destroying the terrain
     - `VoxelMesherBlocky`: Fixed materials "wrapping around" when more than 256 are used. Raised limit to 65536.
+    - `VoxelMesherTransvoxel`: Removed rare degenerate/microscopic triangles, which caused errors with Jolt Physics. However, doing those checks makes meshing about 15% slower (untextured).
     - `VoxelStreamRegionFiles`: Fixed `block_size_po2` wasn't working correctly
     - `VoxelToolTerrain`: Fixed terrain was not marked as modified when setting voxel metadata
     - `VoxelToolLodTerrain`: 
