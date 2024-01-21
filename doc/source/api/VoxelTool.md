@@ -208,13 +208,13 @@ Note 2: Beware of using high `sphere_radius` and high `blur_radius` as the perfo
 
 - [void](#)<span id="i_do_surface"></span> **do_surface**( [Vector3](https://docs.godotengine.org/en/stable/classes/class_vector3.html) sphere_center, [float](https://docs.godotengine.org/en/stable/classes/class_float.html) sphere_radius, [float](https://docs.godotengine.org/en/stable/classes/class_float.html) strength ) 
 
-Adds or removes (depending on `mode`) a value from all voxels within a sphere. Added or removed value will be equal to `strength` at the center of the sphere, and decreases linearly to zero at the surface of the sphere. Voxels outside the sphere will not be affected.
+Adds/removes (depending on `mode`) a value to/from all voxels within a sphere. Added/removed value will be equal to `strength` at the center of the sphere, and decreases linearly to zero at the surface of the sphere. Voxels outside the sphere will not be affected.
 
 `sphere_center` is position in the terrain that will be smoothed out.
 
 `sphere_radius` radius of a sphere from the `center` where voxel values will be affected. Should be greater than zero.
 
-`strength` value that controls maximal value that will be added or removed from voxels. Expected to be in range [0, 1]. Suggested to keep value same as `sdf_scale`.
+`strength` value that controls maximal value that will be added/removed to/from voxels. Should be in range [0, 1]. Suggested to keep value same as `sdf_scale`.
 
 Note 1: This is currently implemented only for terrain that uses SDF data (smooth voxels).
 
